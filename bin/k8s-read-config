@@ -53,7 +53,7 @@ echo "[secrets]: ${SECRETS[@]}"
 SECRET_FILES=()
 for i in "${SECRETS[@]}"
 do
-  SECRET_FILES+=($BASEDIR/deploy/$i.secret.yml)
+  SECRET_FILES+=($BASEDIR/deploy/$i.secret.sops.yml)
 done
 echo "[secret_files]: ${SECRET_FILES[@]}"
 

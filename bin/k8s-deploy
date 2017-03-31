@@ -17,8 +17,10 @@ echo "Deploying Secrets"
 for index in "${!SECRET_FILES[@]}"
 do
   SECRET_FILE=${SECRET_FILES[$index]}
-  echo "Applying ${SECRET_FILE}"
-  kubectl apply -f ${SECRET_FILE} --namespace=$NAMESPACE --record
+  echo "Decrypting and Applying ${SECRET_FILE}"
+  sops --kms ${SOPS_KMS_ARN} \
+  --decrypt ${SECRET_FILE} | \
+  kubectl apply -f - --namespace=$NAMESPACE --record
 done
 echo "Done deploying Secrets"
 echo ""
